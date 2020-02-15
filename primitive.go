@@ -33,7 +33,7 @@ func NewDefaultPrimitiveOptions() *PrimitiveOptions {
 		Alpha:      0,
 		Mode:       1,
 		Iterations: 15,
-		Size:       640,
+		Size:       256,
 		Animated:   false,
 	}
 

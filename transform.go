@@ -44,6 +44,7 @@ func NewPrimitiveTransformation(ctx context.Context, str_url string) (transform.
 		if str_mode == "random" {
 
 			mode := randomInt(1, 7)
+			opts.Mode = mode			
 
 		} else {
 
