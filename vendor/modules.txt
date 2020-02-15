@@ -1,0 +1,25 @@
+# github.com/aaronland/go-image-cli v0.0.0-20200215210826-37fdffc63da5
+github.com/aaronland/go-image-cli
+# github.com/aaronland/go-image-decode v0.0.1
+github.com/aaronland/go-image-decode
+# github.com/aaronland/go-image-encode v0.0.0-20200215191655-047f61aedbfe
+github.com/aaronland/go-image-encode
+# github.com/aaronland/go-image-transform v0.0.0-20200215193528-9bb7b64c2728
+github.com/aaronland/go-image-transform
+# github.com/aaronland/go-roster v0.0.1
+github.com/aaronland/go-roster
+# github.com/fogleman/gg v1.3.0
+github.com/fogleman/gg
+# github.com/fogleman/primitive v0.0.0-20190214200932-673f57e7b1b5
+github.com/fogleman/primitive/primitive
+# github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0
+github.com/golang/freetype/raster
+github.com/golang/freetype/truetype
+# github.com/natefinch/atomic v0.0.0-20150920032501-a62ce929ffcc
+github.com/natefinch/atomic
+# golang.org/x/image v0.0.0-20200119044424-58c23975cae1
+golang.org/x/image/math/fixed
+golang.org/x/image/draw
+golang.org/x/image/font
+golang.org/x/image/font/basicfont
+golang.org/x/image/math/f64
