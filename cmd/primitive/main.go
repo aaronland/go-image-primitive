@@ -14,11 +14,16 @@ import (
 
 func main() {
 
+	random := flag.Bool("random", false, "...")
 	flag.Parse()
 
 	ctx := context.Background()
 
 	opts := primitive.NewDefaultPrimitiveOptions()
+
+	if *random {
+		opts.Mode = primitive.RandomMode()
+	}
 
 	cb := func(ctx context.Context, im image.Image, path string) (image.Image, string, error) {
 

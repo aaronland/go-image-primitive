@@ -4,11 +4,13 @@ import (
 	"bufio"
 	"bytes"
 	"context"
+	"github.com/aaronland/go-image-resize"
 	pr "github.com/fogleman/primitive/primitive"
 	"image"
 	"image/color/palette"
 	"image/draw"
 	"image/gif"
+	_ "log"
 	"math"
 	"math/rand"
 	"runtime"
@@ -24,7 +26,12 @@ type PrimitiveOptions struct {
 	Mode       int
 	Iterations int
 	Size       int
+	ScaleMax   int
 	Animated   bool
+}
+
+func RandomMode() int {
+	return randomInt(1, 7)
 }
 
 func NewDefaultPrimitiveOptions() *PrimitiveOptions {
@@ -33,7 +40,8 @@ func NewDefaultPrimitiveOptions() *PrimitiveOptions {
 		Alpha:      0,
 		Mode:       1,
 		Iterations: 15,
-		Size:       256,
+		Size:       0,
+		ScaleMax:   256,
 		Animated:   false,
 	}
 
@@ -56,7 +64,18 @@ func TransformImage(ctx context.Context, im image.Image, opts *PrimitiveOptions)
 		size = int(max)
 	}
 
-	// resize image here...
+	scale_max := opts.ScaleMax
+
+	if dims.Y > scale_max || dims.X > scale_max {
+
+		new_im, err := resize.ResizeImageMax(ctx, im, scale_max)
+
+		if err != nil {
+			return nil, err
+		}
+
+		im = new_im
+	}
 
 	workers := runtime.NumCPU()
 
@@ -65,10 +84,13 @@ func TransformImage(ctx context.Context, im image.Image, opts *PrimitiveOptions)
 
 	for i := 1; i <= opts.Iterations; i++ {
 
-		// tx := time.Since(t1)
-		// log.Printf("finished step %d in %v\n", i, tx)
+		// t1 := time.Now()
+		// log.Printf("begin step %d at %v\n", i, t1)
 
 		model.Step(pr.ShapeType(mode), alpha, workers)
+
+		// log.Printf("finished step %d in %v\n", i, time.Since(t1))
+
 	}
 
 	if opts.Animated {
