@@ -16,7 +16,7 @@ type PrimitiveTransformation struct {
 func init() {
 
 	ctx := context.Background()
-	err := transform.RegisterTransformation(ctx, "Primitive", NewPrimitiveTransformation)
+	err := transform.RegisterTransformation(ctx, "primitive", NewPrimitiveTransformation)
 
 	if err != nil {
 		panic(err)
@@ -43,8 +43,41 @@ func NewPrimitiveTransformation(ctx context.Context, str_url string) (transform.
 
 		if str_mode == "random" {
 
-			opts.Mode = RandomMode()
+			str_exclude := query["exclude_mode"]
+			exclude := make([]int, len(str_exclude))
+			
+			for idx, str_mode := range str_exclude {
 
+				i, err := strconv.Atoi(str_mode)
+
+				if err != nil {
+					return nil, err
+				}
+
+				exclude[idx] = i
+			}
+
+			for {
+
+				m := RandomMode()
+				ok := true
+
+				if len(exclude) > 0 {
+					
+					for _, i := range exclude {
+						if i == m {
+							ok = false
+							break
+						}
+					}
+				}
+				
+				if ok {
+					opts.Mode = m
+					break
+				}
+			}
+			
 		} else {
 
 			mode, err := strconv.Atoi(str_mode)
